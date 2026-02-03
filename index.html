@@ -261,6 +261,47 @@
             padding: 120px 5%;
             background: linear-gradient(180deg, var(--primary) 0%, var(--neutral-dark) 100%);
             position: relative;
+            overflow: hidden;
+        }
+
+        .services-video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .services-video-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(13,27,42,0.85) 0%, rgba(27,38,59,0.9) 100%);
+            z-index: 1;
+        }
+
+        .services-video-background video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            opacity: 0.3;
+            filter: blur(2px);
+        }
+
+        .services .section-title,
+        .services .services-grid {
+            position: relative;
+            z-index: 2;
         }
 
         .section-title {
@@ -926,6 +967,193 @@
                 opacity: 1;
             }
         }
+
+        /* Video Modal */
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            overflow-y: auto;
+            padding: 2rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .video-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--neutral-dark);
+            border-radius: 20px;
+            max-width: 1200px;
+            width: 100%;
+            position: relative;
+            border: 1px solid rgba(0, 255, 245, 0.2);
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 0, 110, 0.2);
+            color: var(--accent);
+            border: 2px solid var(--accent);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            background: var(--accent);
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 3rem;
+        }
+
+        .modal-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .modal-media {
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .modal-media iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+        }
+
+        .modal-description {
+            font-size: 1.2rem;
+            color: var(--neutral-light);
+            opacity: 0.8;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 245, 0.2);
+            border-radius: 10px;
+            color: var(--text-light);
+            font-size: 1rem;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            background: rgba(0, 255, 245, 0.05);
+            box-shadow: 0 0 20px rgba(0, 255, 245, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-group select {
+            cursor: pointer;
+        }
+
+        .contact-form .btn {
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        /* Responsive Modal */
+        @media (max-width: 768px) {
+            .video-modal {
+                padding: 1rem;
+            }
+
+            .modal-body {
+                padding: 2rem 1.5rem;
+            }
+
+            .modal-title {
+                font-size: 2rem;
+            }
+
+            .modal-media iframe {
+                height: 300px;
+            }
+        }
+
+        /* Portfolio Item Hover Enhancement */
+        .portfolio-item {
+            cursor: pointer;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .portfolio-item:hover .play-icon {
+            transform: scale(1.2);
+        }
     </style>
 </head>
 <body>
@@ -963,6 +1191,11 @@
 
     <!-- Services Section -->
     <section class="services" id="servicios">
+        <div class="services-video-background">
+            <video autoplay muted loop playsinline preload="auto">
+                <source src="video-fondo.mp4" type="video/mp4">
+            </video>
+        </div>
         <div class="section-title">
             <h2>Servicios potenciados por <span class="gradient-text">IA</span></h2>
             <p>Donde la creatividad humana se encuentra con la precisión artificial</p>
@@ -1294,76 +1527,11 @@
                 <a href="#">Política de Privacidad</a>
                 <a href="#">Cookies</a>
             </div>
-            <p style="margin-top: 1rem;">Hecho con 🤖 y ❤️ en Argentina</p>
+            <p style="margin-top: 1rem;">Hecho por SantOps y ❤️ en Argentina</p>
         </div>
     </footer>
 
-    <script>
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Portfolio filter
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        const portfolioItems = document.querySelectorAll('.portfolio-item');
-
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Remove active class from all buttons
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                // Add active class to clicked button
-                button.classList.add('active');
-
-                const filterValue = button.getAttribute('data-filter');
-
-                portfolioItems.forEach(item => {
-                    if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
-                        item.style.display = 'block';
-                        item.style.animation = 'fadeIn 0.5s ease-out';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-            });
-        });
-
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.service-card, .portfolio-item, .testimonial-card').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Nav background on scroll
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 100) {
-                nav.style.background = 'rgba(13, 27, 42, 0.95)';
-            } else {
-                nav.style.background = 'rgba(13, 27, 42, 0.8)';
-            }
-        });
-    </script>
+    <!-- Dynamic Portfolio System -->
+    <script src="app.js"></script>
 </body>
 </html>

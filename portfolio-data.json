@@ -1,0 +1,58 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "title": "Campaña Tech Brand",
+      "description": "IA Generativa • Motion Graphics",
+      "category": "comercial",
+      "image": "https://images.unsplash.com/photo-1536240478700-b869070f9279?w=800&h=450&fit=crop",
+      "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "type": "video"
+    },
+    {
+      "id": 2,
+      "title": "Videoclip \"Digital Dreams\"",
+      "description": "Deepfake • VFX Avanzado",
+      "category": "videoclip",
+      "image": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&h=450&fit=crop",
+      "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "type": "video"
+    },
+    {
+      "id": 3,
+      "title": "Presentación Corporativa AI",
+      "description": "Analytics • Voiceover Sintético",
+      "category": "corporativo",
+      "image": "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=450&fit=crop",
+      "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "type": "video"
+    },
+    {
+      "id": 4,
+      "title": "Experimento Neural",
+      "description": "IA Generativa • Arte Digital",
+      "category": "experimental",
+      "image": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&h=450&fit=crop",
+      "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "type": "video"
+    },
+    {
+      "id": 5,
+      "title": "Spot Automotriz",
+      "description": "CGI • Post-producción IA",
+      "category": "comercial",
+      "image": "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&h=450&fit=crop",
+      "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "type": "video"
+    },
+    {
+      "id": 6,
+      "title": "Videoclip \"Neon Nights\"",
+      "description": "Motion Graphics • Color Grading IA",
+      "category": "videoclip",
+      "image": "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&h=450&fit=crop",
+      "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "type": "video"
+    }
+  ]
+}

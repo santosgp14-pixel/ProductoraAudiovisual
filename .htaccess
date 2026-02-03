@@ -1,0 +1,186 @@
+# NeuralFilms - Configuración Apache
+
+# ============================================
+# SEGURIDAD
+# ============================================
+
+# Proteger archivos sensibles
+<FilesMatch "(\.json|\.log|\.md)$">
+    <IfModule mod_authz_core.c>
+        # Apache 2.4
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        # Apache 2.2
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# Permitir que portfolio-data.json sea accesible
+<Files "portfolio-data.json">
+    <IfModule mod_authz_core.c>
+        Require all granted
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Allow from all
+    </IfModule>
+</Files>
+
+# Proteger panel de administración (opcional - descomenta para activar)
+# <Files "admin.html">
+#     AuthType Basic
+#     AuthName "Área Restringida"
+#     AuthUserFile /ruta/completa/.htpasswd
+#     Require valid-user
+# </Files>
+
+# Deshabilitar listado de directorios
+Options -Indexes
+
+# ============================================
+# RENDIMIENTO
+# ============================================
+
+# Habilitar compresión GZIP
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE image/svg+xml
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/json
+</IfModule>
+
+# Cache del navegador
+<IfModule mod_expires.c>
+    ExpiresActive On
+    
+    # Imágenes
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    
+    # CSS y JavaScript
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    
+    # HTML
+    ExpiresByType text/html "access plus 0 seconds"
+    
+    # JSON
+    ExpiresByType application/json "access plus 0 seconds"
+    
+    # Fuentes
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType application/font-woff "access plus 1 year"
+    ExpiresByType application/font-woff2 "access plus 1 year"
+    ExpiresByType application/x-font-woff "access plus 1 year"
+</IfModule>
+
+# Headers de cache
+<IfModule mod_headers.c>
+    # Cache imágenes
+    <FilesMatch "\.(jpg|jpeg|png|gif|svg|webp)$">
+        Header set Cache-Control "max-age=31536000, public"
+    </FilesMatch>
+    
+    # Cache CSS y JS
+    <FilesMatch "\.(css|js)$">
+        Header set Cache-Control "max-age=2592000, public"
+    </FilesMatch>
+    
+    # No cachear HTML y JSON
+    <FilesMatch "\.(html|json)$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires 0
+    </FilesMatch>
+</IfModule>
+
+# ============================================
+# SEO Y REDIRECCIONES
+# ============================================
+
+# Forzar HTTPS (descomenta si tienes SSL)
+# <IfModule mod_rewrite.c>
+#     RewriteEngine On
+#     RewriteCond %{HTTPS} off
+#     RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# </IfModule>
+
+# Redireccionar www a no-www (o viceversa)
+# <IfModule mod_rewrite.c>
+#     RewriteEngine On
+#     RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+#     RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+# </IfModule>
+
+# ============================================
+# TIPOS MIME
+# ============================================
+
+<IfModule mod_mime.c>
+    # JavaScript
+    AddType application/javascript js
+    AddType application/json json
+    
+    # Video
+    AddType video/mp4 mp4 m4v
+    AddType video/webm webm
+    
+    # Audio
+    AddType audio/mp3 mp3
+    AddType audio/ogg ogg
+    
+    # Fuentes
+    AddType font/woff woff
+    AddType font/woff2 woff2
+    AddType application/font-woff woff
+    AddType application/font-woff2 woff2
+    
+    # Imágenes
+    AddType image/webp webp
+    AddType image/svg+xml svg svgz
+</IfModule>
+
+# ============================================
+# CORS (si necesitas acceder desde otros dominios)
+# ============================================
+
+# <IfModule mod_headers.c>
+#     Header set Access-Control-Allow-Origin "*"
+#     Header set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+#     Header set Access-Control-Allow-Headers "Content-Type"
+# </IfModule>
+
+# ============================================
+# ERROR PAGES (opcional)
+# ============================================
+
+# ErrorDocument 404 /404.html
+# ErrorDocument 500 /500.html
+
+# ============================================
+# CONFIGURACIÓN PHP
+# ============================================
+
+<IfModule mod_php7.c>
+    # Límites para formularios
+    php_value upload_max_filesize 10M
+    php_value post_max_size 10M
+    php_value max_execution_time 300
+    php_value max_input_time 300
+</IfModule>
