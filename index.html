@@ -126,16 +126,57 @@
             position: absolute;
             width: 100%;
             height: 100%;
+            overflow: hidden;
+        }
+
+        .animated-bg::before,
+        .animated-bg::after {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+        }
+
+        .animated-bg::before {
             background: 
-                radial-gradient(circle at 20% 50%, rgba(0, 255, 245, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(255, 0, 110, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 40% 20%, rgba(123, 44, 191, 0.2) 0%, transparent 50%);
-            animation: float 20s ease-in-out infinite;
+                radial-gradient(circle at 20% 50%, rgba(0, 255, 245, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 0, 110, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(123, 44, 191, 0.25) 0%, transparent 50%);
+            animation: float 15s ease-in-out infinite;
+        }
+
+        .animated-bg::after {
+            background: 
+                radial-gradient(circle at 60% 70%, rgba(0, 255, 245, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 30% 30%, rgba(255, 0, 110, 0.2) 0%, transparent 45%),
+                radial-gradient(circle at 70% 50%, rgba(123, 44, 191, 0.15) 0%, transparent 50%);
+            animation: floatReverse 20s ease-in-out infinite;
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0px) scale(1); }
-            50% { transform: translateY(-20px) scale(1.05); }
+            0%, 100% { 
+                transform: translate(0, 0) rotate(0deg) scale(1);
+            }
+            33% { 
+                transform: translate(60px, -50px) rotate(8deg) scale(1.15);
+            }
+            66% { 
+                transform: translate(-50px, 40px) rotate(-6deg) scale(0.9);
+            }
+        }
+
+        @keyframes floatReverse {
+            0%, 100% { 
+                transform: translate(0, 0) rotate(0deg) scale(1);
+            }
+            33% { 
+                transform: translate(-70px, 50px) rotate(-7deg) scale(1.2);
+            }
+            66% { 
+                transform: translate(50px, -40px) rotate(9deg) scale(0.85);
+            }
         }
 
         .hero-content {
